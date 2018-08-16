@@ -80,43 +80,29 @@ public class FizzBuzz {
 	}
 		
 	private void print(Integer value) {
-		boolean isDivisable = false;
-		boolean containsAThree = String.valueOf(value).contains("3");
 		boolean isDivisableByThree = (value % 3 == 0);
 		boolean isDivisableByFive = (value % 5 == 0);
-		
-		if (isDivisableByThree && !containsAThree) {
+		boolean isDivisableByFifteen = (value % 15 == 0);
+		boolean containsAThree = String.valueOf(value).contains("3");
+
+		if (containsAThree) {
+			System.out.print(LUCKY);
+			this.luckCtr++;
+		} else if (isDivisableByFifteen) {
 			System.out.print(FIZZ);
-			isDivisable = true;
-		}
-		
-		if (isDivisableByFive && !containsAThree) {
 			System.out.print(BUZZ);
-			isDivisable = true;
-		}
-
-		if (isDivisableByThree && !isDivisableByFive && !containsAThree) {
-			fizzCtr++;
-		}
-
-		if (!isDivisableByThree && isDivisableByFive && !containsAThree) {
-			buzzCtr++;
-		}
-		
-		if (isDivisableByThree && isDivisableByFive) {
 			fizzbuzzCtr++;
-		}
-		
-		if (!isDivisable && !containsAThree) {
-			System.out.print(value);
+		} else if (isDivisableByFive) {
+			System.out.print(BUZZ);
+			buzzCtr++;
+		} else if (isDivisableByThree) {
+			System.out.print(FIZZ);	
+			fizzCtr++;
+		} else {
+			System.out.print(value);			
 			numberCtr++;
 		}
 		
-		if (containsAThree) {
-			System.out.print(LUCKY);
-			luckCtr++;
-		}		
-
 		if (value.intValue() < maxRange) {
 			System.out.print(" ");			
 		}
@@ -128,7 +114,7 @@ public class FizzBuzz {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		FizzBuzz fizzBuzz = new FizzBuzz(1, 20);
+		FizzBuzz fizzBuzz = new FizzBuzz(30, 30);
 		fizzBuzz.run();
 		System.out.println("");
 		fizzBuzz.run();
