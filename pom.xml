@@ -1,13 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mcs</groupId>
-  <artifactId>fizzbuzz-step02</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <name>FizzBuzz program - step 2</name>
-  <description>FizzBuzz program - step 2</description>
+  <groupId>com.equalexperts.fb</groupId>
+  <artifactId>fizzbuzz-step03</artifactId>
+  <version>1.0.0</version>
+  <name>FizzBuzz program - step 3</name>
+  <description>FizzBuzz program - step 3</description>
   
   <properties>
-  	<junit.version>4.9</junit.version>	
+  	<junit.version>4.9</junit.version>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>	
   </properties>
     
   <dependencies>

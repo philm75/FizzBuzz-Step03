@@ -1,12 +1,9 @@
-package com.mcs;
+package com.equalexperts.fb;
 
-import java.util.Iterator;
 import java.util.stream.IntStream;
 
 /**
- * @author Phil Merrilees
- * Sep 5, 2017
- * Description - "FizzBuzz" program
+ * Description - "FizzBuzz" program - Step 3.
  */
 public class FizzBuzz {
 
@@ -40,9 +37,11 @@ public class FizzBuzz {
 	 */
 	private static final String FIZZ = "fizz";
 	private static final String BUZZ = "buzz";
-	private static final String LUCK = "luck";
+	private static final String LUCKY = "lucky";
 	private static final String	FIZZBUZZ = "fizzbuzz";
-	private static final String	NUMBER = "number";
+	private static final String	NUMBER = "integer";
+	
+	private static final String TOTAL = " %s: %s";
 	
 	/**
 	 * @param minRange
@@ -57,77 +56,70 @@ public class FizzBuzz {
         }
 		this.minRange = minRange;
 		this.maxRange = maxRange;
+	}
+	
+	public void run() {
 		this.fizzCtr = 0;	
 		this.buzzCtr = 0;
 		this.fizzbuzzCtr = 0;
 		this.luckCtr = 0;
 		this.numberCtr = 0;
+		
+		IntStream.rangeClosed(minRange, maxRange).forEach(number -> {
+			print(number);
+		});
+		printTotals();
 	}
-	
-	public void go() {
-		Iterator<Integer> it = IntStream.rangeClosed(minRange, maxRange).iterator();
-		while (it.hasNext()) {
-			System.out.print(output(it.next()));
-		}
-		outputTotals();
+		
+	private void printTotals() {
+		System.out.print(String.format(TOTAL, FIZZ, String.valueOf(fizzCtr)));
+		System.out.print(String.format(TOTAL, BUZZ, String.valueOf(buzzCtr)));
+		System.out.print(String.format(TOTAL, FIZZBUZZ, String.valueOf(fizzbuzzCtr)));
+		System.out.print(String.format(TOTAL, LUCKY, String.valueOf(luckCtr)));
+		System.out.print(String.format(TOTAL, NUMBER, String.valueOf(numberCtr)));
 	}
-	
-	private void outputTotals() {
-		System.out.println("\n" + outputTotalLine(FIZZ, fizzCtr));
-		System.out.println(outputTotalLine(BUZZ, buzzCtr));
-		System.out.println(outputTotalLine(FIZZBUZZ, fizzbuzzCtr));
-		System.out.println(outputTotalLine(LUCK, luckCtr));
-		System.out.println(outputTotalLine(NUMBER, numberCtr));
-	}
-	
-	private String outputTotalLine(String heading, int total) {
-		return new StringBuilder(heading).append(": ").append(String.valueOf(total)).toString();
-	}
-	
-	private String output(Integer value) {
-		StringBuilder output = new StringBuilder();
+		
+	private void print(Integer value) {
 		boolean isDivisable = false;
-		if (isDivisableBy(value, 3) && !containsAThree(value)) {
-			output.append(FIZZ);
+		boolean containsAThree = String.valueOf(value).contains("3");
+		boolean isDivisableByThree = (value % 3 == 0);
+		boolean isDivisableByFive = (value % 5 == 0);
+		
+		if (isDivisableByThree && !containsAThree) {
+			System.out.print(FIZZ);
 			isDivisable = true;
 		}
 		
-		if (isDivisableBy(value, 5) && !containsAThree(value)) {
-			output.append(BUZZ);
+		if (isDivisableByFive && !containsAThree) {
+			System.out.print(BUZZ);
 			isDivisable = true;
 		}
 
-		if (isDivisableBy(value, 3) && !isDivisableBy(value, 5) && !containsAThree(value)) {
+		if (isDivisableByThree && !isDivisableByFive && !containsAThree) {
 			fizzCtr++;
 		}
 
-		if (!isDivisableBy(value, 3) && isDivisableBy(value, 5) && !containsAThree(value)) {
+		if (!isDivisableByThree && isDivisableByFive && !containsAThree) {
 			buzzCtr++;
 		}
 		
-		if (isDivisableBy(value, 3) && isDivisableBy(value, 5)) {
+		if (isDivisableByThree && isDivisableByFive) {
 			fizzbuzzCtr++;
 		}
 		
-		if (!isDivisable && !containsAThree(value)) {
-			output.append(String.valueOf(value));
+		if (!isDivisable && !containsAThree) {
+			System.out.print(value);
 			numberCtr++;
 		}
 		
-		if (containsAThree(value)) {
-			output.append(LUCK);
+		if (containsAThree) {
+			System.out.print(LUCKY);
 			luckCtr++;
 		}		
-		output.append(" ");
-		return output.toString();
-	}
-	
-	private static boolean containsAThree(int value) {
-		return String.valueOf(value).contains("3");
-	}
-	
-	private static boolean isDivisableBy(int value, int divider) {
-		return (value % divider == 0);
+
+		if (value.intValue() < maxRange) {
+			System.out.print(" ");			
+		}
 	}
 
 	/**
@@ -137,6 +129,8 @@ public class FizzBuzz {
 	 */
 	public static void main(String[] args) {
 		FizzBuzz fizzBuzz = new FizzBuzz(1, 20);
-		fizzBuzz.go();
+		fizzBuzz.run();
+		System.out.println("");
+		fizzBuzz.run();
 	}
 }
